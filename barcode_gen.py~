@@ -1,0 +1,9 @@
+import barcode
+from barcode.writer import ImageWriter
+
+bcgen = barcode.get_barcode_class('code39')
+bcgen
+
+bc = bcgen('', writer=ImageWriter())
+fullname = bcgen.save('first')
+

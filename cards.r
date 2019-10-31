@@ -16,7 +16,7 @@ cc1 = dat$N.1
 dat = list(title, genre, format, barcode, director, runtime, dvd.date, cc, cc1)
 dat=lapply(dat, as.character)
 
-dat = data.frame(matrix(unlist(dat), nrow=length(dat[[1]]), byrow=F))
+dat = data.frame(matrix(unlist(dat), nrow=length(dat[[1]]), byrow=F), stringsAsFactors = F)
 colnames(dat) = c("title", "genre","format", "barcode", "director",
                   "runtime", "dvd_date", "cc", "cc1")
 
@@ -35,4 +35,14 @@ idx.porno = which(dat$genre == "X")
 dat = dat[-idx.porno,]
 
 
+# add two leading zeros barcode scanning
+dat$barcode = paste0("00", dat$barcode)
+
+
+outfile = paste0(getwd(),"/cards.rds")
+saveRDS(dat, file = outfile)
+
+# save barcodes to txt for python to read
+write.table(dat$barcode, "barcodes.txt", sep="",
+            row.names = F, col.names = F, quote=F)
 
