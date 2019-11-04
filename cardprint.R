@@ -10,7 +10,9 @@ dat=readRDS(infile)
 
 
 
-printcardpdf = function(dat, outfile){
+printcardpdf = function(dat, outfile, png.w_=.22, png.h_=.12){
+  png.w = png.w_
+  png.h = png.h_
   pdf(outfile, height=8.5, width=11)
   par(mfcol=c(2,2)) # fills in by column
   par(mar=c(2,1,2,1)) # bottom, left, top, right
@@ -43,21 +45,21 @@ printcardpdf = function(dat, outfile){
         mypng = readPNG(pngfile)
         
         # top left
-        png.w = .17
+
         if(i%%4 ==1){
-          grid.raster(mypng, .25, .62, width=png.w)
+          grid.raster(mypng, .25, .62, width=png.w, height=png.h)
         }
         # bottom left
         else if (i%%4 == 2){
-          grid.raster(mypng, .25, .12, width=png.w)
+          grid.raster(mypng, .25, .12, width=png.w, height=png.h)
         }
         # top right
         else if (i%%4 == 3){
-          grid.raster(mypng, .75, .62, width=png.w)
+          grid.raster(mypng, .75, .62, width=png.w, height=png.h)
         }
         # bottom right
         else if (i%%4 == 0){
-          grid.raster(mypng, .75, .12, width=png.w)
+          grid.raster(mypng, .75, .12, width=png.w, height=png.h)
         }
       }
     }
@@ -75,14 +77,20 @@ printcardpdf = function(dat, outfile){
 }
 
 genres = sort(unique(dat$genre))
-
+png.w = .22
+png.h = .12
+dim_ = paste0("w=",as.character(png.w),"h=",as.character(png.h))
 for(genre in genres){
   cat("printing ", genre)
   cat("\n")
-  outdvd = paste0("/outpdf/",tolower(genre),"_dvd.pdf")
-  outbd = paste0("/outpdf/",tolower(genre),"_bd.pdf")
+  outdvd = paste0(getwd(),"/outpdf/",tolower(genre),
+                  "_dvd_", dim_, ".pdf")
+  outbd = paste0(getwd(),"/outpdf/",tolower(genre),
+                 "_bd_", dim_, ".pdf")
   
-  printcardpdf(dat[dat$genre==genre&dat$format=="DVD",], outdvd)
-  printcardpdf(dat[dat$genre==genre&dat$format=="Blu-ray",], outbd)
+  printcardpdf(dat[dat$genre==genre&dat$format=="DVD",],
+               outdvd, png.w_ = png.w, png.h_ = png.h)
+  printcardpdf(dat[dat$genre==genre&dat$format=="Blu-ray",],
+               outbd, png.w_ = png.w, png.h_ = png.h)
 }
 cat("done")
