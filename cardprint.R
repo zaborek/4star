@@ -77,7 +77,7 @@ printcardpdf = function(dat, outfile, png.w_=.22, png.h_=.12){
 }
 
 genres = sort(unique(dat$genre))
-png.w = .22
+png.w = .26
 png.h = .12
 dim_ = paste0("w=",as.character(png.w),"h=",as.character(png.h))
 for(genre in genres){
@@ -93,4 +93,15 @@ for(genre in genres){
   printcardpdf(dat[dat$genre==genre&dat$format=="Blu-ray",],
                outbd, png.w_ = png.w, png.h_ = png.h)
 }
-cat("done")
+cat("done \n")
+
+
+#####
+# print master pdf file of all videos, order by title
+#####
+cat("printing master \n")
+dat = dat[order(dat$title),]
+masterout =   outbd = paste0(getwd(),"/outpdf/master_upto_20191028.pdf")
+printcardpdf(dat, masterout, png.w_ = png.w, png.h_ = png.h)
+
+cat("done \n")

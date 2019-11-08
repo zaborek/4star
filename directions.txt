@@ -1,0 +1,11 @@
+step one:
+run "python3 barcode_gen.py"
+
+step two:
+run cards.r
+
+step three:
+run cardprint.R
+
+step four:
+final output is in outpdf/
