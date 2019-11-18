@@ -83,9 +83,9 @@ dim_ = paste0("w=",as.character(png.w),"h=",as.character(png.h))
 for(genre in genres){
   cat("printing ", genre)
   cat("\n")
-  outdvd = paste0(getwd(),"/outpdf/",tolower(genre),
+  outdvd = paste0(getwd(),"/outpdf/white/",tolower(genre),
                   "_dvd_", dim_, ".pdf")
-  outbd = paste0(getwd(),"/outpdf/",tolower(genre),
+  outbd = paste0(getwd(),"/outpdf/blue/",tolower(genre),
                  "_bd_", dim_, ".pdf")
   
   printcardpdf(dat[dat$genre==genre&dat$format=="DVD",],
@@ -99,9 +99,9 @@ cat("done \n")
 #####
 # print master pdf file of all videos, order by title
 #####
-cat("printing master \n")
-dat = dat[order(dat$title),]
-masterout =   outbd = paste0(getwd(),"/outpdf/master_upto_20191028.pdf")
-printcardpdf(dat, masterout, png.w_ = png.w, png.h_ = png.h)
+#cat("printing master \n")
+#dat = dat[order(dat$title),]
+#masterout =   outbd = paste0(getwd(),"/outpdf/master_upto_20191028.pdf")
+#printcardpdf(dat, masterout, png.w_ = png.w, png.h_ = png.h)
 
-cat("done \n")
+#cat("done \n")
