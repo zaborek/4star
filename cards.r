@@ -1,8 +1,9 @@
+#setwd("/Users/zaborek/private/projects/4star")
 filename = "TAP001.TXT"
 dat= read.csv(filename)
 dat[1:100,]
 
-title = dat$X.71..71
+title = as.character(dat$X.71..71)
 format = dat$DVD
 barcode = dat$X.8
 director = dat$X.2
@@ -13,6 +14,7 @@ genre = dat$SEE
 cc = dat$N
 cc1 = dat$N.1
 subbed = as.character(dat$X.1)
+loc = dat$X.16
 
 # fix release years ##################################
 dvd.date = as.character(dvd.date)
@@ -38,15 +40,16 @@ country[idx.sub] = country.info
 
 
 
+# location = 1 only!!!, final cost, make sure unique pages
 
 
 
-dat = list(title, genre, format, barcode, director, runtime, rel.year, dvd.year, dvd.date, cc, cc1, country, sub.info)
+dat = list(title, genre, format, barcode, director, runtime, rel.year, dvd.year, dvd.date, cc, cc1, country, sub.info, loc)
 dat=lapply(dat, as.character)
 
 dat = data.frame(matrix(unlist(dat), nrow=length(dat[[1]]), byrow=F), stringsAsFactors = F)
 colnames(dat) = c("title", "genre","format", "barcode", "director",
-                  "runtime", "rel_year", "dvd_year", "dvd_date", "cc", "cc1", "country", "subtitles")
+                  "runtime", "rel_year", "dvd_year", "dvd_date", "cc", "cc1", "country", "subtitles", "location")
 
 
 # remove records:
@@ -66,6 +69,9 @@ dat = dat[-idx.porno,]
 idx.cln = which(dat$genre == "CLN")
 dat = dat[-idx.cln,]
 
+# location ne 1
+idx.eq1 = which(dat$loc ==1)
+dat = dat[idx.eq1,]
 
 # add two leading zeros barcode scanning
 dat$barcode = paste0("00", dat$barcode)
