@@ -1,11 +1,6 @@
-step one:
-run "python3 barcode_gen.py"
+1. make sure "TAP001.TXT" and cards.r are in the same folder
+2. run cards.r to produce cards.rds and barcodes.txt.
+cards.rds contains the cleaned title data, barcodes.txt contains a list of barcodes for python to use.
+3. use python3 to run barcode_gen.py to generate new barcodes
+4. run cardprint_update.r to make new pdfs and update old pdfs
 
-step two:
-run cards.r
-
-step three:
-run cardprint.R
-
-step four:
-final output is in outpdf/
