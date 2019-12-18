@@ -8,9 +8,18 @@
 # edit this to print all titles entered on or after the specified date!
 #######################################################################
 title_date = "2019-10-01" # must be in "YYYY-MM-DD" format
-update_master = FALSE     # set to either TRUE or FALSE, to update master card set; takes a few mins to update
+update_master = FALSE     # set to either TRUE or FALSE, to update master card set; takes ~10 mins to update
 
+
+
+#######################################################################
+#######################################################################
+#######################################################################
 ##### do not edit below this line!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#######################################################################
+#######################################################################
+#######################################################################
+
 library(png)
 library(grid)
 

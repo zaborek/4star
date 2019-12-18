@@ -2,9 +2,11 @@
 2. run cards.r to produce cards.rds, barcodes_new.txt, and barcodes.txt.
 cards.rds contains the cleaned title data, barcodes.txt contains a list of all barcodes for python to use; barcodes_new.txt contains only barcodes with images not yet created.
 3. use python3 to run barcode_gen.py to generate new barcodes
-4. run cardprint_update.r to make new pdfs and update old pdfs
+4. update date and run cardprint_update.r to make new pdfs and update old pdfs
 
 STORE OLD TAP001.TXT files in their own folder titled "oldtap" with a date stamp! eg, TAP001_20191218.TXT
 
 
+
+All cards are in outpdf/blue (blu-rays) or outpdf/white (dvds). The updated card files will be named YYYY-MM-DD_bd.pdf in /blue or YYYY-MM-DD_dvd.pdf in /white
 
