@@ -3,7 +3,7 @@ from barcode.writer import ImageWriter
 
 code39 = barcode.get_barcode_class('code39')
 
-f = open("barcodes.txt","r")
+f = open("barcodes_new.txt","r")
 barcodes = f.read().split("\n")
 
 

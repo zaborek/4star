@@ -26,6 +26,10 @@ printcardpdf = function(dat, outfile, png.w_=.26, png.h_=.12){
   par(mar=c(2,1,2,1)) # bottom, left, top, right
   
   for(i in 1:nrow(dat)){
+    if(nrow(dat)==0){
+      plot.new()
+      text(.02, .95, "NO FILES FOUND", pos=4)
+      break} # break out if empty dataset...
     datt = dat[i,]
     
     

@@ -1,10 +1,9 @@
 rm(list=ls())
-
+setwd("/Users/zaborek/private/projects/4star") #work
 library(png)
 library(grid)
 
-infile = paste0(getwd(),"/cards.rds")
-dat=readRDS(infile)
+
 
 
 
@@ -17,19 +16,22 @@ printcardpdf = function(dat, outfile, png.w_=.22, png.h_=.12){
   par(mfcol=c(2,2)) # fills in by column
   par(mar=c(2,1,2,1)) # bottom, left, top, right
   
+  
   for(i in 1:nrow(dat)){
+    if(i==0){break}
     datt = dat[i,]
-    
     
     plot.new()
     polygon(c(0,0,1,1), c(0,1,1,0), border="black", lwd=3)
     top.text = datt$genre
-    if(nchar(datt$country)>0){
-      top.text = paste0(top.text, " - ", datt$country)
-    }
+    if(!is.na(datt$country)){
+      if(nchar(datt$country)>0){
+        top.text = paste0(top.text, " - ", datt$country)
+      }}
+    if(!is.na(datt$subtitles)){
     if(datt$subtitles=="Subtitled"){
       top.text = paste0(top.text, " - ", datt$subtitles)
-    }
+    }}
     text(.02, .95, top.text, pos=4)
     text(.5,.77,datt$title, cex=1.28)
     text(.5,.6, paste0("Director: ", datt$director))
@@ -39,13 +41,14 @@ printcardpdf = function(dat, outfile, png.w_=.22, png.h_=.12){
     text(.02, .05, datt$format, pos=4)
     
     # put in barcode
+    if(!is.na(datt$barcode)){
     if(nchar(datt$barcode)==8){
       pngfile = paste0('barcode_png/', datt$barcode, '.png')
       if(file.exists(pngfile)){
         mypng = readPNG(pngfile)
         
         # top left
-
+        
         if(i%%4 ==1){
           grid.raster(mypng, .25, .62, width=png.w, height=png.h)
         }
@@ -62,7 +65,7 @@ printcardpdf = function(dat, outfile, png.w_=.22, png.h_=.12){
           grid.raster(mypng, .75, .12, width=png.w, height=png.h)
         }
       }
-    }
+    }}
     polygon(c(0,0,1,1), c(0,1,1,0), border="black", lwd=3)
     
     
@@ -76,24 +79,34 @@ printcardpdf = function(dat, outfile, png.w_=.22, png.h_=.12){
   
 }
 
-genres = sort(unique(dat$genre))
-png.w = .26
-png.h = .12
-dim_ = paste0("w=",as.character(png.w),"h=",as.character(png.h))
-for(genre in genres){
-  cat("printing ", genre)
-  cat("\n")
-  outdvd = paste0(getwd(),"/outpdf/white/",tolower(genre),
-                  "_dvd_", dim_, ".pdf")
-  outbd = paste0(getwd(),"/outpdf/blue/",tolower(genre),
-                 "_bd_", dim_, ".pdf")
-  
-  printcardpdf(dat[dat$genre==genre&dat$format=="DVD",],
-               outdvd, png.w_ = png.w, png.h_ = png.h)
-  printcardpdf(dat[dat$genre==genre&dat$format=="Blu-ray",],
-               outbd, png.w_ = png.w, png.h_ = png.h)
+printing = function(dat, extra=""){
+  genres = sort(unique(dat$genre))
+  png.w = .26
+  png.h = .12
+  dim_ = paste0("w=",as.character(png.w),"h=",as.character(png.h))
+  for(genre in genres){
+    cat("printing ", genre)
+    cat("\n")
+    outdvd = paste0(getwd(),"/outpdf/white/",tolower(genre),
+                    "_dvd_", dim_, extra,".pdf")
+    outbd = paste0(getwd(),"/outpdf/blue/",tolower(genre),
+                   "_bd_", dim_, extra,".pdf")
+    
+    printcardpdf(dat[dat$genre==genre&dat$format=="DVD",],
+                 outdvd, png.w_ = png.w, png.h_ = png.h)
+    printcardpdf(dat[dat$genre==genre&dat$format=="Blu-ray",],
+                 outbd, png.w_ = png.w, png.h_ = png.h)
+  }
+  cat("done \n")
 }
-cat("done \n")
+
+# infile = paste0(getwd(),"/cards.rds")
+# dat=readRDS(infile)
+# printing(dat.sale, extra="sale20191216")
+
+infile2 = paste0(getwd(),"/cards_sale.rds")
+dat.sale=readRDS(infile2)
+printing(dat.sale, extra="sale20191216")
 
 
 #####

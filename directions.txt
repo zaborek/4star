@@ -1,6 +1,10 @@
-1. make sure "TAP001.TXT" and cards.r are in the same folder
-2. run cards.r to produce cards.rds and barcodes.txt.
-cards.rds contains the cleaned title data, barcodes.txt contains a list of barcodes for python to use.
+1. make sure the latest "TAP001.TXT" and cards.r are in the same folder
+2. run cards.r to produce cards.rds, barcodes_new.txt, and barcodes.txt.
+cards.rds contains the cleaned title data, barcodes.txt contains a list of all barcodes for python to use; barcodes_new.txt contains only barcodes with images not yet created.
 3. use python3 to run barcode_gen.py to generate new barcodes
 4. run cardprint_update.r to make new pdfs and update old pdfs
+
+STORE OLD TAP001.TXT files in their own folder titled "oldtap" with a date stamp! eg, TAP001_20191218.TXT
+
+
 
