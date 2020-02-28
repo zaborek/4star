@@ -124,3 +124,29 @@ if(update_master){
   cat("printing master took ", (Sys.time() - t)/60, " minutes.\n")
 }
 cat("Done! \n ")
+
+
+
+
+
+##########################################################################
+# update january 2020, add sticker printing
+##########################################################################
+# 10 columns by 3 rows
+idx.update = c(idx.date.bd, idx.date.dvd)
+outfile = paste0("/Users/zaborek/private/projects/4star/outpdf/sticker_labels/", title_date, ".pdf")
+pdf(outfile, height=11, width=8.5)
+par(mfrow=c(10,3)) # fills in by row
+par(mar=c(.5,.25,.5,.25)) # bottom, left, top, right
+
+for (idx in idx.update){
+  plot.new()
+  title.text = dat[idx,"title"]
+  title.cex=1.2
+  if (nchar(title.text)>30){title.cex=.9} 
+  text(.02, .7, dat[idx,"title"], pos=4, cex=title.cex)
+  text(.02, .4, dat[idx,"barcode"], pos=4, cex=1.2)
+}
+dev.off()
+
+

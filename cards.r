@@ -1,5 +1,5 @@
 setwd("/Users/zaborek/private/projects/4star") #work
-filename = "TAP001.TXT"
+filename = "TAP001_20200211.TXT"
 dat= read.csv(filename)
 dat[1:100,]
 
